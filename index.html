@@ -53,17 +53,64 @@ body{
 
 .title{
 
+      display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:15px;
+
     background:#b54b39;
 
-    color:#fff;
+    color:white;
 
-    text-align:center;
+    padding:12px;
 
-    padding:10px;
+}
+   .logo{
 
-    font-size:20px;
+    width:60px;
+
+    height:60px;
+
+    object-fit:contain;
+
+    border-radius:8px;
+
+    background:white;
+
+    padding:4px;
+
+}
+
+.titleText{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+.mainTitle{
+
+    font-size:26px;
 
     font-weight:bold;
+
+    line-height:1.1;
+
+}
+
+.version{
+
+    font-size:14px;
+
+    opacity:.85;
+
+    margin-top:2px;
 
 }
 
@@ -314,9 +361,21 @@ body{
 }
 .logo{
 
-width:90px;
+    width:46px;
 
-margin-bottom:10px;
+    height:46px;
+
+}
+
+.mainTitle{
+
+    font-size:20px;
+
+}
+
+.version{
+
+    font-size:11px;
 
 }
 @media (max-width:600px){
@@ -388,9 +447,19 @@ body{
 
 <div class="title">
 
-<img src="logo.png" class="logo">
+ <img src="logo.png" class="logo">
 
-<h2>MM ⇄ Feet-Inch Converter</h2>
+    <div class="titleText">
+
+        <div class="mainTitle">
+            MM Converter
+        </div>
+
+        <div class="version">
+            Pourin VN Product by Trong Tan
+        </div>
+
+    </div>
 
 </div>
 
