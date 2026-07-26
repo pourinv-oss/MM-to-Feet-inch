@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MM ⇄ Feet-Inch Converter</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================
+   MM ⇄ Feet-Inch Converter
+   Version 1.0
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Roboto',sans-serif;
+
+    background:#edf1f5;
+
+    padding:20px;
+
+}
+
+.container{
+
+    max-width:480px;
+
+    margin:auto;
+
+}
+
+.card{
+
+    background:#fff;
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.18);
+
+}
+
+.title{
+
+    background:#b54b39;
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:18px;
+
+    font-size:26px;
+
+    font-weight:bold;
+
+}
+
+.subtitle{
+
+    text-align:center;
+
+    color:#777;
+
+    font-size:14px;
+
+    padding:12px 15px;
+
+}
+
+.modeBox{
+
+    padding:20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+}
+
+.modeBox label{
+
+    cursor:pointer;
+
+    font-size:15px;
+
+}
+
+.inputGroup{
+
+    padding:0 20px 18px;
+
+}
+
+.inputGroup label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+    color:#444;
+
+}
+
+.inputGroup input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:18px;
+
+    outline:none;
+
+}
+
+.inputGroup input:focus{
+
+    border-color:#b54b39;
+
+}
+
+.inputGroup select{
+
+    width:100%;
+
+    padding:14px;
+
+    border-radius:8px;
+
+    border:1px solid #ccc;
+
+    font-size:17px;
+
+}
+
+.swapArea{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+#swapBtn{
+
+    background:#2196F3;
+
+    color:white;
+
+    border:none;
+
+    border-radius:30px;
+
+    padding:12px 28px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+#swapBtn:hover{
+
+    transform:scale(1.05);
+
+}
+
+.resultBox{
+
+    margin:20px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    background:#fafafa;
+
+}
+
+.resultTitle{
+
+    background:#efefef;
+
+    padding:12px;
+
+    text-align:center;
+
+    font-weight:bold;
+
+    font-size:18px;
+
+}
+
+.resultLine{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px 18px;
+
+    border-top:1px solid #ececec;
+
+}
+
+.caption{
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+.value{
+
+    font-weight:bold;
+
+    color:#0d47a1;
+
+    text-align:right;
+
+    font-size:18px;
+
+}
+
+.buttonArea{
+
+    display:flex;
+
+    gap:12px;
+
+    padding:20px;
+
+}
+
+.buttonArea button{
+
+    flex:1;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:14px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+#copyBtn{
+
+    background:#4CAF50;
+
+    color:white;
+
+}
+
+#clearBtn{
+
+    background:#f44336;
+
+    color:white;
+
+}
+
+.buttonArea button:hover{
+
+    transform:translateY(-2px);
+
+    opacity:.95;
+
+}
+
+.footer{
+
+    text-align:center;
+
+    color:#999;
+
+    padding:16px;
+
+    font-size:13px;
+
+}
+
+/* Mobile */
+
+@media(max-width:600px){
+
+.title{
+
+    font-size:22px;
+
+}
+
+.modeBox{
+
+    flex-direction:column;
+
+}
+
+.resultLine{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+.value{
+
+    margin-top:5px;
+
+    font-size:20px;
+
+}
+
+.buttonArea{
+
+    flex-direction:column;
+
+}
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="title">
+
+📐 MM ⇄ Feet-Inch Converter
+
+</div>
+
+<div class="subtitle">
+
+Quick Unit Converter for Structural Drawing
+
+</div>
+
+<div class="modeBox">
+
+<label>
+
+<input type="radio" name="mode" value="mm" checked>
+
+MM → Feet-Inch
+
+</label>
+
+<label>
+
+<input type="radio" name="mode" value="ft">
+
+Feet-Inch → MM
+
+</label>
+
+</div>
+
+<div class="inputGroup">
+
+<label id="inputLabel">
+
+Millimeter
+
+</label>
+
+<input
+type="text"
+id="inputValue"
+placeholder="Enter value">
+
+</div>
+
+<div class="swapArea">
+
+<button id="swapBtn">
+
+⇅ Swap
+
+</button>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+
+Fraction Precision
+
+</label>
+
+<select id="fraction">
+
+<option value="2">1/2"</option>
+
+<option value="4">1/4"</option>
+
+<option value="8">1/8"</option>
+
+<option value="16">1/16"</option>
+
+<option value="32">1/32"</option>
+
+<option value="64" selected>1/64"</option>
+
+</select>
+
+</div>
+
+<div class="resultBox">
+
+<div class="resultTitle">
+
+Result
+
+</div>
+
+<div class="resultLine">
+
+<div class="caption">
+
+Feet-Inch
+
+</div>
+
+<div class="value" id="resultArchitect">
+
+--
+
+</div>
+
+</div>
+
+<div class="resultLine">
+
+<div class="caption">
+
+Feet (Decimal)
+
+</div>
+
+<div class="value" id="resultFeet">
+
+--
+
+</div>
+
+</div>
+
+<div class="resultLine">
+
+<div class="caption">
+
+Inch (Decimal)
+
+</div>
+
+<div class="value" id="resultInch">
+
+--
+
+</div>
+
+</div>
+
+<div class="resultLine">
+
+<div class="caption">
+
+Millimeter
+
+</div>
+
+<div class="value" id="resultMM">
+
+--
+
+</div>
+
+</div>
+
+</div>
+
+<div class="buttonArea">
+
+<button id="copyBtn">
+
+📋 Copy
+
+</button>
+
+<button id="clearBtn">
+
+🗑 Clear
+
+</button>
+
+</div>
+
+<div class="footer">
+
+Version 1.0
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+//=========================
+// MM ⇄ Feet-Inch Converter
+// Version 1.0
+//=========================
+
+const input = document.getElementById("inputValue");
+const fraction = document.getElementById("fraction");
+const radios = document.getElementsByName("mode");
+
+const resultArchitect = document.getElementById("resultArchitect");
+const resultFeet = document.getElementById("resultFeet");
+const resultInch = document.getElementById("resultInch");
+const resultMM = document.getElementById("resultMM");
+
+const inputLabel = document.getElementById("inputLabel");
+
+const swapBtn = document.getElementById("swapBtn");
+const clearBtn = document.getElementById("clearBtn");
+const copyBtn = document.getElementById("copyBtn");
+
+
+//=====================
+// Events
+//=====================
+
+input.addEventListener("input", update);
+
+fraction.addEventListener("change", update);
+
+radios.forEach(r=>{
+
+    r.addEventListener("change",()=>{
+
+        if(r.value=="mm" && r.checked)
+            inputLabel.innerHTML="Millimeter";
+
+        if(r.value=="ft" && r.checked)
+            inputLabel.innerHTML="Feet-Inch";
+
+        input.value="";
+
+        clearResult();
+
+    });
+
+});
+
+swapBtn.addEventListener("click",swapMode);
+
+clearBtn.addEventListener("click",()=>{
+
+    input.value="";
+    clearResult();
+
+});
+
+copyBtn.addEventListener("click",()=>{
+
+    navigator.clipboard.writeText(resultArchitect.innerText);
+
+});
+
+
+//=====================
+// Main Update
+//=====================
+
+function update(){
+
+    let mode=getMode();
+
+    if(mode=="mm")
+        mmToFeet();
+
+    else
+        feetToMM();
+
+}
+
+
+//=====================
+// Get Mode
+//=====================
+
+function getMode(){
+
+    for(let r of radios){
+
+        if(r.checked)
+            return r.value;
+
+    }
+
+}
+
+
+//=====================
+// Swap
+//=====================
+
+function swapMode(){
+
+    if(getMode()=="mm"){
+
+        radios[1].checked=true;
+        inputLabel.innerHTML="Feet-Inch";
+
+    }
+
+    else{
+
+        radios[0].checked=true;
+        inputLabel.innerHTML="Millimeter";
+
+    }
+
+    input.value="";
+
+    clearResult();
+
+}
+
+
+//=====================
+// Clear Result
+//=====================
+
+function clearResult(){
+
+    resultArchitect.innerHTML="--";
+
+    resultFeet.innerHTML="--";
+
+    resultInch.innerHTML="--";
+
+    resultMM.innerHTML="--";
+
+}
+
+
+//=====================
+// MM → Feet
+//=====================
+
+function mmToFeet(){
+
+    let mm=parseFloat(input.value);
+
+    if(isNaN(mm)){
+
+        clearResult();
+
+        return;
+
+    }
+
+    let inch=mm/25.4;
+
+    let ft=inch/12;
+
+    resultFeet.innerHTML=ft.toFixed(6)+" ft";
+
+    resultInch.innerHTML=inch.toFixed(6)+'"';
+
+    resultMM.innerHTML=mm.toFixed(3)+" mm";
+
+    resultArchitect.innerHTML=formatArchitect(inch);
+
+}
+
+
+
+//=====================
+// Feet → MM
+//=====================
+
+function feetToMM(){
+
+    let txt=input.value.trim();
+
+    if(txt==""){
+
+        clearResult();
+
+        return;
+
+    }
+
+    let inch=parseFeet(txt);
+
+    if(isNaN(inch)){
+
+        clearResult();
+
+        return;
+
+    }
+
+    let mm=inch*25.4;
+
+    let ft=inch/12;
+
+    resultFeet.innerHTML=ft.toFixed(6)+" ft";
+
+    resultInch.innerHTML=inch.toFixed(6)+'"';
+
+    resultMM.innerHTML=mm.toFixed(3)+" mm";
+
+    resultArchitect.innerHTML=formatArchitect(inch);
+
+}
+
+
+
+//=====================
+// Parse Feet
+//=====================
+
+function parseFeet(str){
+
+    str=str.toLowerCase();
+
+    str=str.replace(/ft/g,"'");
+
+    str=str.replace(/in/g,'"');
+
+    str=str.replace(/-/g," ");
+
+    str=str.replace(/ +/g," ");
+
+    let feet=0;
+
+    let inch=0;
+
+    let numerator=0;
+
+    let denominator=1;
+
+    let m=str.match(/(\d+)\s*'/);
+
+    if(m)
+        feet=parseInt(m[1]);
+
+    m=str.match(/'\s*(\d+)/);
+
+    if(m)
+        inch=parseInt(m[1]);
+
+    m=str.match(/(\d+)\s*\/\s*(\d+)/);
+
+    if(m){
+
+        numerator=parseInt(m[1]);
+
+        denominator=parseInt(m[2]);
+
+    }
+
+    return feet*12+inch+numerator/denominator;
+
+}
+
+
+
+//=====================
+// Architectural
+//=====================
+
+function formatArchitect(inch){
+
+    let den=parseInt(fraction.value);
+
+    let ft=Math.floor(inch/12);
+
+    let remain=inch-ft*12;
+
+    let whole=Math.floor(remain);
+
+    let frac=remain-whole;
+
+    let num=Math.round(frac*den);
+
+    if(num==den){
+
+        whole++;
+        num=0;
+
+    }
+
+    if(whole==12){
+
+        ft++;
+        whole=0;
+
+    }
+
+    if(num==0)
+        return ft+"' - "+whole+'"';
+
+    let g=gcd(num,den);
+
+    num/=g;
+
+    let d=den/g;
+
+    return ft+"' - "+whole+" "+num+"/"+d+'"';
+
+}
+
+
+
+//=====================
+// GCD
+//=====================
+
+function gcd(a,b){
+
+    return b?gcd(b,a%b):a;
+
+}
+</script>
+
+</body>
+</html>
